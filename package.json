@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Playwight E2E Tests with AI Capabilities incl MCP",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "login": "npx playwright test tests/functional/login.spec.ts --headed",
+    "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
+    "altLogin": "npx playwright test tests/functional/codingExercise_Codegen.spec.ts"
+
+  },
   "keywords": [
     "playwright",
     "playwright-e2e-tests",
@@ -14,6 +19,6 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.0.1"
+    "@types/node": "^26.1.0"
   }
 }
