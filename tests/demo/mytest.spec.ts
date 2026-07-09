@@ -105,4 +105,4 @@ test.only("Should demo locators", async ({ page }, testInfo) => {
 
 // Example of how I used the 'Pick Locator' option in the 'Testing' view in VS Code 
 // to find a locator of an element and paste it into a script:
-await page.getByRole('heading', { name: 'We Care About Your Health' }).click()
+// await page.getByRole('heading', { name: 'We Care About Your Health' }).click()
