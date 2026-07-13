@@ -8,7 +8,8 @@
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "altLogin": "npx playwright test tests/functional/codingExercise_Codegen.spec.ts",
     "make-apt": "npx playwright test tests/functional/make.aptmnt.spec.ts --headed",
-    "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed"
+    "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed",
+    "inventory": "npx playwright test tests/functional/inventory.spec.ts --headed"
 
 
   },
