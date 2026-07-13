@@ -73,7 +73,8 @@ test("Should do something", { tag: "@smoke" }, async ({ page }, testInfo) => {
 // Code from the Deep Dive into Playwright Locators section of the course.
 // IMPORTANT
 // 'test.only' will make it so only this 'test' is executed within this file.
-test.only("Should demo locators", async ({ page }, testInfo) => {
+// test.only("Should demo locators", async ({ page }, testInfo) => {
+test("Should demo locators", async ({ page }, testInfo) => {
   // ✅'page.getBy*()' and 'page.locator()' methods return the 'locator' object.
   // ✅The above methods not to be 'awaited'.
   // ✅The type of locator is an 'object'.
@@ -96,7 +97,7 @@ test.only("Should demo locators", async ({ page }, testInfo) => {
   // BUT if we now try to perform an action against that element it will throw an error because the locator info is invalid
   // and we are trying to perform an action against that element - it tries to find it in the DOM and won't be able to.
   // See below:
-  await makeAppmtBtn.click(); // An action is being performed, so this requires the 'await' keyword to be used.
+  // await makeAppmtBtn.click(); // An action is being performed, so this requires the 'await' keyword to be used.
   // The above line of code will still FAIL because it is performing an action against the element (click)
   // assert that 'Please login to make' will be visible
   // await expect(page.getByText("Please login to make")).toBeVisible();
