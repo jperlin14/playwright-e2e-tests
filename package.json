@@ -8,10 +8,11 @@
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "altLogin": "npx playwright test tests/functional/codingExercise_Codegen.spec.ts",
     "make-apt": "npx playwright test tests/functional/make.aptmnt.spec.ts --headed",
+    "debug": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --headed",
+    "debug:ui": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --ui --headed",
+    "debug:cli": "cross-env PWDEBUG=1 npx playwright test tests/demo/debug.make.aptmnt.spec.ts",
     "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed",
     "inventory": "npx playwright test tests/functional/inventory.spec.ts --headed"
-
-
   },
   "keywords": [
     "playwright",
@@ -23,6 +24,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.1.0"
+    "@types/node": "^26.1.0",
+    "cross-env": "^10.1.0"
   }
 }
