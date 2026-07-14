@@ -30,8 +30,7 @@ test.describe('Make appointment', () => {
 
         // checkbox
         await page.getByRole('checkbox', { name: 'Apply for hospital readmission' }).check();
-        await page.pause();
-
+        await page.pause(); // Example of using pause for debugging. When executed via CLI it will open the Playwright Inspector here.
         // radio button
         await page.getByRole('radio', { name: 'Medicaid' }).check();
 

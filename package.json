@@ -11,6 +11,7 @@
     "debug": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --headed",
     "debug:ui": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --ui --headed",
     "debug:cli": "cross-env PWDEBUG=1 npx playwright test tests/demo/debug.make.aptmnt.spec.ts",
+    "debug:trace": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --trace on",
     "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed",
     "inventory": "npx playwright test tests/functional/inventory.spec.ts --headed"
   },
