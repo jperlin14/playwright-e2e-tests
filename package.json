@@ -13,6 +13,8 @@
     "debug:cli": "cross-env PWDEBUG=1 npx playwright test tests/demo/debug.make.aptmnt.spec.ts",
     "debug:trace": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --trace on",
     "pw-basic-cap": "npx playwright test tests/functional/pw.basic.cap.make.aptmnt.spec.ts --headed",
+    "demo:tag": "npx playwright test --grep @smoke --headed",
+    "demo:tag:regression": "npx playwright test --grep @regression --headed",
     "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed",
     "inventory": "npx playwright test tests/functional/inventory.spec.ts --headed"
   },

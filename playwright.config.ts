@@ -55,6 +55,7 @@ export default defineConfig({
         ignoreHTTPSErrors: true,
         navigationTimeout: 30_000, // // Numeric separators improve readability: 30_000 equals 30,000 milliseconds.
         screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
     },
 
     /* Configure projects for major browsers */
