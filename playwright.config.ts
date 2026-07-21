@@ -8,11 +8,14 @@ import { defineConfig, devices } from '@playwright/test';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 
+console.log(`Hello from config 👋`);
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
     testDir: './tests',
+    // globalTimeout: 10_000,
     /* Run tests in files in parallel */
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -50,7 +53,8 @@ export default defineConfig({
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
         ignoreHTTPSErrors: true,
-        navigationTimeout: 30_000, // Note - commas can't be used so _ is used instead for 30,000 miliseconds
+        navigationTimeout: 30_000, // // Numeric separators improve readability: 30_000 equals 30,000 milliseconds.
+        screenshot: 'only-on-failure',
     },
 
     /* Configure projects for major browsers */

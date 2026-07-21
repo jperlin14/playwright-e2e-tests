@@ -103,7 +103,17 @@ test("Should demo locators", async ({ page }, testInfo) => {
   // await expect(page.getByText("Please login to make")).toBeVisible();
 });
 
+test("Should demo config", async ({ page }, testInfo) => {
+ console.log(`>> Config at run-time: ${JSON.stringify(testInfo.config)}`);
+});
 
-// Example of how I used the 'Pick Locator' option in the 'Testing' view in VS Code 
-// to find a locator of an element and paste it into a script:
-// await page.getByRole('heading', { name: 'We Care About Your Health' }).click()
+// browserName FIXTURE can be used to do things like only execute a test for certain browsers
+test.only("Should demo browserName fixture", async ({ page, browserName }, testInfo) => {
+console.log(`>> The test runs on ${browserName}`);
+});
+
+// request FIXTURE can be used for API testing
+// test.only("Should demo request fixture", async ({ request }, testInfo) => {
+// request. // request options are displayed after the period.
+// });
+
