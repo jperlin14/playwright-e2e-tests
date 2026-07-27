@@ -1,50 +1,65 @@
-import { FullConfig } from '@playwright/test';
-import { exec } from 'node:child_process';
-import dotenv from 'dotenv';
-import path from 'node:path';
+import { FullConfig } from "@playwright/test";
+import { exec } from "node:child_process";
 
-const envPath = path.resolve(process.cwd(), '.env');
-
-const dotenvResult = dotenv.config({
-    path: envPath,
-});
-
-console.log(`[DEBUG]: Current working directory: ${process.cwd()}`);
-console.log(`[DEBUG]: Loading environment file: ${envPath}`);
-
-if (dotenvResult.error) {
-    console.error(
-        `[ERROR]: Unable to load .env file: ${dotenvResult.error.message}`
-    );
-} else {
-    console.log('[DEBUG]: Parsed .env values:', dotenvResult.parsed);
-}
-
+/**
+ * Global Teardown
+ *
+ * This function is executed one time after ALL Playwright tests have completed,
+ * regardless of how many test files or workers were used.
+ *
+ * Common uses include:
+ * - Cleaning up temporary files
+ * - Removing test data
+ * - Closing external resources
+ * - Generating reports
+ * - Launching the Allure report for local execution
+ */
 export default async function globalTeardown(config: FullConfig) {
-    console.log('[INFO]: Starting the global teardown process...');
 
-    const runner = process.env.RUNNER?.trim().toUpperCase();
+    console.log("[INFO]: Starting the global teardown process...");
 
-    console.log(`[DEBUG]: RUNNER = "${runner}"`);
+    /**
+     * Only launch the Allure report when running tests locally.
+     *
+     * This prevents CI/CD pipelines from attempting to open a browser window,
+     * which would fail because build servers typically run without a desktop.
+     *
+     * The optional chaining operator (?.) prevents an error if the RUNNER
+     * environment variable has not been defined.
+     */
+    if (process.env.RUNNER?.toUpperCase() === "LOCAL") {
 
-    if (runner === 'LOCAL') {
-        console.log(
-            '>> Local run detected - starting Allure server...'
-        );
+        console.log(">> Local run detected - starting Allure server...");
 
-        exec('allure serve', error => {
+        /**
+         * Execute the same command you would normally type in the terminal:
+         *
+         *     allure serve
+         *
+         * This generates the Allure report, starts a temporary web server,
+         * and automatically opens the report in your default browser.
+         */
+        exec("allure serve", (error, stdout, stderr) => {
+
+            /**
+             * If the Allure command cannot be executed (for example,
+             * Allure is not installed or cannot be found), display
+             * a helpful error message.
+             */
             if (error) {
                 console.error(
-                    'ERROR: Starting Allure server:',
+                    "ERROR: Unable to start the Allure server:",
                     error.message
                 );
             }
+
+            /**
+             * Note:
+             * stdout and stderr are available if you want to capture
+             * the command output, but they are not needed in this example.
+             */
         });
-    } else {
-        console.log(
-            `[INFO]: Allure was not started because RUNNER is "${runner}".`
-        );
     }
 
-    console.log('[INFO]: Completed the global teardown process...');
+    console.log("[INFO]: Completed the global teardown process...");
 }
