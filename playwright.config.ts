@@ -4,9 +4,9 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 console.log(`Hello from config 👋`);
 
@@ -24,6 +24,13 @@ export default defineConfig({
     retries: process.env.CI ? 2 : 0,
     /* Opt out of parallel tests on CI. */
     workers: process.env.CI ? 1 : undefined,
+    // Below is one time task to be executed before a test run.
+    globalSetup: require.resolve('./tests/helpers/global-setup.ts'),
+    globalTeardown: require.resolve('./tests/helpers/global-teardown.ts'),
+    // Set expect timeout at global level. This can slow down test execution so try to avoid setting this.
+    // If needed - set this within the test step expect level within the test itself.
+    // expect: {timeout: 10_000},
+    
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [
         [
@@ -55,44 +62,48 @@ export default defineConfig({
         ignoreHTTPSErrors: true,
         navigationTimeout: 30_000, // // Numeric separators improve readability: 30_000 equals 30,000 milliseconds.
         screenshot: 'only-on-failure',
-        video: 'retain-on-failure',
+        // video: 'retain-on-failure',
+        // Note: Changes the action timeout setting. In most cases you don't want to change this because it can slow down test execution.
+        // actionTimeout: 10_000,
     },
 
     /* Configure projects for major browsers */
     projects: [
         {
             name: 'chromium',
-            use: { ...devices['Desktop Chrome'] },
+            use: {
+                // ...devices["Desktop Chrome"],
+                viewport: null,
+                launchOptions: {
+                    args: ['--start-maximized'],
+                },
+            },
         },
 
         // {
-        //   name: 'firefox',
-        //   use: { ...devices['Desktop Firefox'] },
+        //     name: 'firefox',
+        //     use: { ...devices['Desktop Firefox'] },
         // },
 
         // {
-        //   name: 'webkit',
-        //   use: { ...devices['Desktop Safari'] },
+        //     name: 'webkit',
+        //     use: { ...devices['Desktop Safari'] },
         // },
 
-        /* Test against mobile viewports. */
         // {
-        //   name: 'Mobile Chrome',
-        //   use: { ...devices['Pixel 5'] },
-        // },
-        // {
-        //   name: 'Mobile Safari',
-        //   use: { ...devices['iPhone 12'] },
+        //     name: 'Microsoft Edge',
+        //     use: {
+        //         ...devices['Desktop Edge'],
+        //         channel: 'msedge',
+        //     },
         // },
 
-        /* Test against branded browsers. */
         // {
-        //   name: 'Microsoft Edge',
-        //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-        // },
-        // {
-        //   name: 'Google Chrome',
-        //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+        //     name: 'Google Chrome',
+        //     use: {
+        //         ...devices['Desktop Chrome'],
+        //         channel: 'chrome',
+        //     },
         // },
     ],
 

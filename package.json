@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "login": "npx playwright test tests/functional/login.spec.ts --headed",
+    "demo:global": "npx playwright test tests/functional/login.spec.ts",
+    "pw-adv-cap": "cross-env DEBUG=pw:api npx playwright test tests/demo/pw.adv.cap.login.spec.ts --headed",
     "demo": "npx playwright test tests/demo/mytest.spec.ts --headed",
     "altLogin": "npx playwright test tests/functional/codingExercise_Codegen.spec.ts",
     "make-apt": "npx playwright test tests/functional/make.aptmnt.spec.ts --headed",
@@ -30,6 +32,7 @@
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.0",
     "allure-playwright": "^3.10.2",
-    "cross-env": "^10.1.0"
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2"
   }
 }
