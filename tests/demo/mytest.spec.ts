@@ -13,7 +13,7 @@
  * */
 // Imports from Test Runner. Note that you can import multiple using comma separated values
 // Here we are importing 'test' and 'expect' from Test Runner
-import { test, expect } from "@playwright/test";
+import { test, expect, devices } from "@playwright/test";
 // This indicates which modules you want to load for this particular test so it will understand these commands.
 // Note: you can add more to this list by adding a comma after 'expect' and
 // then CTRL-Spacebar to show available items to import.
@@ -108,7 +108,7 @@ test("Should demo config", async ({ page }, testInfo) => {
 });
 
 // browserName FIXTURE can be used to do things like only execute a test for certain browsers
-test.only("Should demo browserName fixture", async ({ page, browserName }, testInfo) => {
+test("Should demo browserName fixture", async ({ page, browserName }, testInfo) => {
 console.log(`>> The test runs on ${browserName}`);
 });
 
@@ -117,3 +117,10 @@ console.log(`>> The test runs on ${browserName}`);
 // request. // request options are displayed after the period.
 // });
 
+// Returns all devices available in Playwright (browsers, mobile devices, etc.)
+test.only('Should demo devices', async () => {
+    const availableDevices = Object.keys(devices);
+
+    console.log(`Playwright version device count: ${availableDevices.length}`);
+    console.log(availableDevices);
+});

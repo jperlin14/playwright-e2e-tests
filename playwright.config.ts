@@ -30,7 +30,7 @@ export default defineConfig({
     // Set expect timeout at global level. This can slow down test execution so try to avoid setting this.
     // If needed - set this within the test step expect level within the test itself.
     // expect: {timeout: 10_000},
-    
+
     /* Reporter to use. See https://playwright.dev/docs/test-reporters */
     reporter: [
         [
@@ -60,23 +60,23 @@ export default defineConfig({
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
         ignoreHTTPSErrors: true,
-        navigationTimeout: 30_000, // // Numeric separators improve readability: 30_000 equals 30,000 milliseconds.
-        screenshot: 'only-on-failure',
+        navigationTimeout: 30_000, // Numeric separators improve readability: 30_000 equals 30,000 milliseconds.
+        screenshot: 'on',
         // video: 'retain-on-failure',
         // Note: Changes the action timeout setting. In most cases you don't want to change this because it can slow down test execution.
         // actionTimeout: 10_000,
     },
 
-    /* Configure projects for major browsers */
+    /* Configure projects for major browsers and mobile devices */
     projects: [
         {
             name: 'chromium',
             use: {
-                // ...devices["Desktop Chrome"],
-                viewport: null,
-                launchOptions: {
-                    args: ['--start-maximized'],
-                },
+                ...devices['Desktop Chrome'],
+                // viewport: null,
+                // launchOptions: {
+                //     args: ['--start-maximized'],
+                // },
             },
         },
 
@@ -87,7 +87,7 @@ export default defineConfig({
 
         // {
         //     name: 'webkit',
-        //     use: { ...devices['Desktop Safari'] },
+        //     use: { ...devices['Desktop Safari'], ignoreHTTPSErrors: true },
         // },
 
         // {
@@ -103,6 +103,24 @@ export default defineConfig({
         //     use: {
         //         ...devices['Desktop Chrome'],
         //         channel: 'chrome',
+        //     },
+        // },
+        {
+            name: 'Galaxy A55',
+            use: { ...devices['Galaxy A55'] },
+        },
+
+        // {
+        //     name: 'Mobile Chrome',
+        //     use: {
+        //         ...devices['Pixel 5'],
+        //     },
+        // },
+
+        // {
+        //     name: 'Mobile Safari',
+        //     use: {
+        //         ...devices['iPhone 12'],
         //     },
         // },
     ],

@@ -24,7 +24,10 @@ test.describe('Make appointment', () => {
     });
 
     // Tests go here
-    test('Should make an appointment with non-default values', async ({ page }) => {
+    test('Should make an appointment with non-default values', async ({ page }, testInfo) => {
+        
+        console.log(`>> Current config \n: ${JSON.stringify(testInfo.config)}`);
+        
         // dropdown
         await page.getByLabel('Facility').selectOption('Hongkong CURA Healthcare Center');
 
