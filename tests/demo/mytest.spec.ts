@@ -18,6 +18,9 @@ import { test, expect, devices } from '@playwright/test';
 // Note: you can add more to this list by adding a comma after 'expect' and
 // then CTRL-Spacebar to show available items to import.
 
+// Allows us to access data stored in the constants.json file
+import constants from "../../data/constants.json";
+
 test('Should load homepage with correct title', async ({ page }) => {
     // 1. Go to homepage
     await page.goto('https://katalon-demo-cura.herokuapp.com/');
@@ -132,4 +135,11 @@ test('Should demo parallel run 1', {tag : '@demo'}, async ({ page }, testInfo) =
 
 test('Should demo parallel run 2', {tag : '@demo'}, async ({ page }, testInfo) => {
     await page.goto('https://www.google.com');
+});
+
+test.only('Should demo constants data', async ({ page }, testInfo) => {
+    // Access the status code value from the constants.json file stored in the data folder.
+    // To access we needed to add an import statement at the top of the file (import constants from...)
+    console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODES)}`);
+
 });

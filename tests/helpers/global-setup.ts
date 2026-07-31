@@ -129,8 +129,20 @@ export default async function globalSetup(config: FullConfig) {
     // Example:
     // C:\Users\Jeff\PlaywrightTraining\allure-results
     // ------------------------------------------------------------------------
-        console.log(`[INFO]: Completed the global setup.`);
+    console.log(`[INFO]: Completed the global setup.`);
 
-        // ALL OTHER ONE-OFF TASKS GO HERE...
+    // ******ALL OTHER ONE-OFF TASKS GO HERE...******
 
+    // Initialize a shared runtime variable that will later store the login cookies.
+    //
+    // At this point, no login has occurred, so the value is set to undefined.
+    // During the test run, this variable will be populated with the login cookies
+    // after they have been generated.
+    //
+    // Once populated, the value can be accessed anywhere in the Playwright project
+    // using:
+    //
+    //     process.env.LOGIN_COOKIES
+    //
+    process.env.LOGIN_COOKIES = undefined;
 }
