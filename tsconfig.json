@@ -5,8 +5,15 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "strict": false,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "types": ["node"]
     },
-    "include": ["tests/**/*.ts", "data/**/*.ts", "playwright.config.ts"],
+    "include": [
+        "tests/**/*.ts",
+        "data/**/*.ts",
+        "debug/**/*.ts",
+        "config/**/*.ts",
+        "playwright.config.ts"
+    ],
     "exclude": ["node_modules", "dist"]
 }

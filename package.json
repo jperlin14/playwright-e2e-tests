@@ -4,6 +4,8 @@
   "description": "Playwight E2E Tests with AI Capabilities incl MCP",
   "main": "index.js",
   "scripts": {
+    "dev:make-apt": "npx playwright test --config=config/dev.playwright.config.ts tests/functional/make.aptmnt.spec.ts --headed",
+    "test:make-apt": "npx playwright test --config=config/test.playwright.config.ts tests/functional/make.aptmnt.spec.ts --headed",
     "demo:params": "npx playwright test tests/demo/params.make.aptmnt.spec.ts --headed",
     "demo:parallel": "npx playwright test --grep @demo",
     "login": "npx playwright test tests/functional/login.spec.ts --headed",
@@ -32,9 +34,10 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.61.1",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.2",
     "allure-playwright": "^3.10.2",
     "cross-env": "^10.1.0",
+    "csv-parse": "^7.0.2",
     "dotenv": "^17.4.2",
     "tsx": "^4.23.1"
   }
