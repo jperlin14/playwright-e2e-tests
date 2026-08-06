@@ -19,7 +19,10 @@ import { test, expect, devices } from '@playwright/test';
 // then CTRL-Spacebar to show available items to import.
 
 // Allows us to access data stored in the constants.json file
-import constants from "../../data/constants.json";
+import constants from '../../data/constants.json';
+
+// Allows us to access the log function in the logger.ts file
+import { log } from '../helpers/logger.js';
 
 test('Should load homepage with correct title', async ({ page }) => {
     // 1. Go to homepage
@@ -51,7 +54,7 @@ test('Should load homepage with correct title', async ({ page }) => {
 
 // To execute the test go to Terminal in VS Code and execute the following:
 // npx playwright test tests/demo/mytest.spec.ts --headed
-// Note: -- headed is optional
+// Note: --headed is optional
 
 // Another test example
 test('Should do something', { tag: '@smoke' }, async ({ page }, testInfo) => {
@@ -61,7 +64,7 @@ test('Should do something', { tag: '@smoke' }, async ({ page }, testInfo) => {
     // Then we designate as an asynchronous test
     // Then we identify the fixture to be used (page value is pulled in from the fixtures)
     // Fixtures other than 'page', etc. can be used. (here testInfo is added) using comma separated values
-    // Hint: place curson in this field and hit CTRL-Space to see the additional available selections.
+    // Hint: place cursor in this field and hit CTRL-Space to see the additional available selections.
     // Then Arrow Function => to indicate 'run everything within the curly brackets'.
     // Steps
     await page.goto('https://katalon-demo-cura.herokuapp.com/');
@@ -77,32 +80,21 @@ test('Should do something', { tag: '@smoke' }, async ({ page }, testInfo) => {
 // 'test.only' will make it so only this 'test' is executed within this file.
 // test.only("Should demo locators", async ({ page }, testInfo) => {
 test('Should demo locators', async ({ page }, testInfo) => {
-    // ✅'page.getBy*()' and 'page.locator()' methods return the 'locator' object.
-    // ✅The above methods not to be 'awaited'.
-    // ✅The type of locator is an 'object'.
-    // ✅Locators are LAZY until an action is fired on them.
-    // This means that they don't use the { name: "Make Appointment" } part of the code unless
-    // an action is being performed against the element that was located.
+    // ✅ 'page.getBy*()' and 'page.locator()' methods return the 'Locator' object.
+    // ✅ The above methods are not to be 'awaited'.
+    // ✅ The type of locator is an object.
+    // ✅ Locators are LAZY until an action is fired on them.
 
     // Launch URL
     await page.goto('https://katalon-demo-cura.herokuapp.com/');
 
     // Click on 'Make Appointment' link
-    // let makeAppmtBtn = page.getByRole("link", { name: "Make Appointment" }) -- previous version of this line of code.
+    const makeAppmtBtn = page.getByRole('link', { name: 'Invalid Locator' });
 
-    let makeAppmtBtn = page.getByRole('link', { name: 'Invalid Locator' }); // Set the locator to a variable. Changed 'name' to invalid value.
-    // If you hover over 'getbyRole' you'll see that a Promise is not returned - so no need for an 'await' keyword.
-    // Also, locators are considered 'LAZY' because if you don't perform an action it will not actually look for the element.
-    // Since we are just assigning the locator info to a variable it is not actually trying to locate the element - this code will pass.
     console.log(`>> The type of locator: ${typeof makeAppmtBtn}, The value of the locator is ${JSON.stringify(makeAppmtBtn)}`);
-    // The above line of code will run successfully because no action is being performed against the element.
-    // BUT if we now try to perform an action against that element it will throw an error because the locator info is invalid
-    // and we are trying to perform an action against that element - it tries to find it in the DOM and won't be able to.
-    // See below:
-    // await makeAppmtBtn.click(); // An action is being performed, so this requires the 'await' keyword to be used.
-    // The above line of code will still FAIL because it is performing an action against the element (click)
-    // assert that 'Please login to make' will be visible
-    // await expect(page.getByText("Please login to make")).toBeVisible();
+
+    // Uncomment the line below to demonstrate locator failure.
+    // await makeAppmtBtn.click();
 });
 
 test('Should demo config', async ({ page }, testInfo) => {
@@ -127,19 +119,47 @@ test('Should demo devices', async () => {
     console.log(availableDevices);
 });
 
-// Below example(s) can be executed after updating playwright.config.ts to run fullyParallel: true, changing the number of projects enabled, etc.
-// to demonstrate the # of tests and # of workers that are executed (and reported in Terminal during the test run).
-test('Should demo parallel run 1', {tag : '@demo'}, async ({ page }, testInfo) => {
+// Below example(s) can be executed after updating playwright.config.ts to run fullyParallel: true,
+// changing the number of projects enabled, etc., to demonstrate the number of tests and workers
+// that are executed.
+test('Should demo parallel run 1', { tag: '@demo' }, async ({ page }, testInfo) => {
     await page.goto('https://www.google.com');
 });
 
-test('Should demo parallel run 2', {tag : '@demo'}, async ({ page }, testInfo) => {
+test('Should demo parallel run 2', { tag: '@demo' }, async ({ page }, testInfo) => {
     await page.goto('https://www.google.com');
 });
 
-test.only('Should demo constants data', async ({ page }, testInfo) => {
+test('Should demo constants data', async ({ page }, testInfo) => {
     // Access the status code value from the constants.json file stored in the data folder.
-    // To access we needed to add an import statement at the top of the file (import constants from...)
+    // To access we needed to add an import statement at the top of the file.
     console.log(`>> Constants data: ${JSON.stringify(constants.STATUSCODES)}`);
+});
 
+test.only('Should demo a click action', async ({ page }, testInfo) => {
+    // Demonstrates Playwright's native click() action.
+
+    // Navigate to the application using Playwright's native page.goto() method.
+    // await page.goto('https://katalon-demo-cura.herokuapp.com/');
+
+    // Create a locator using an intentionally incorrect accessible name.
+    const ele = page.getByRole('link', { name: 'Make-Appointment' });
+
+    // The accessible name is intentionally incorrect.
+    // The correct name is "Make Appointment" (without the hyphen).
+    // This will cause Playwright to throw an error when it attempts to
+    // locate and click the element.
+    // await ele.click();
+
+    // Reproduce the enhanced click logic defined in BasePage
+    // so we can compare it with Playwright's native click() behavior.
+    await page.goto('https://katalon-demo-cura.herokuapp.com/');
+
+    try {
+        await expect(ele).toBeVisible({ timeout: 10_000 }); // Custom timeout: Default - 5 seconds
+        await ele.click();
+    } catch (error) {
+        await log('error', `Failed to click element: ${ele.toString()}, original error: ${error}`);
+        throw error;
+    }
 });
