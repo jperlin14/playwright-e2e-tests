@@ -65,6 +65,7 @@ export const baseConfig = defineConfig({
         // video: 'retain-on-failure',
         // Note: Changes the action timeout setting. In most cases you don't want to change this because it can slow down test execution.
         // actionTimeout: 10_000,
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     },
 
     /* Configure projects for major browsers and mobile devices */
@@ -74,9 +75,13 @@ export const baseConfig = defineConfig({
             use: {
                 ...devices['Desktop Chrome'],
                 // viewport: null,
-                // launchOptions: {
-                //     args: ['--start-maximized'],
-                // },
+                launchOptions: {
+                    args: [
+                        '--disable-blink-features=AutomationControlled',
+                        '--disable-features=IsolateOrigins,site-per-process',
+                        '--allow-no-sandbox-job',
+                    ],
+                },
             },
         },
 
