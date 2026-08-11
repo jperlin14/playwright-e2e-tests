@@ -32,7 +32,8 @@ import { baseConfig } from '../playwright.config';
 // EnvConfig defines the structure of our custom environment configuration.
 // TypeScript uses this definition to validate that the configuration contains
 // the expected properties and data types.
-import { EnvConfig } from '../tests/helpers/config-fixtures.ts';
+// import { EnvConfig } from '../tests/helpers/config-fixtures.ts';
+import { EnvConfig } from '../tests/helpers/config-fixtures';
 
 // Import Node.js's built-in path module.
 //
@@ -85,6 +86,7 @@ export default defineConfig<EnvConfig>({
         //
         // Tests can reference this value instead of hard-coding URLs.
         appURL: 'https://katalon-demo-cura.herokuapp.com/',
+        nopCommerceWeb: 'https://admin-demo.nopcommerce.com/',
 
         // Database configuration.
         //

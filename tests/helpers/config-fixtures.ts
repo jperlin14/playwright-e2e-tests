@@ -70,6 +70,7 @@ export type EnvConfig = {
     //
     // We'll expand this object later as our project grows.
     dbConfig: {};
+    nopCommerceWeb: string;
 
     // Additional configuration values can easily be added here later.
 };
@@ -106,6 +107,9 @@ export const test = base.extend<EnvConfig>({
     // The empty object indicates that no database configuration has been
     // supplied yet.
     dbConfig: [{}, { option: true }],
+
+    // Default nopCommerce web application URL.
+    nopCommerceWeb: ['<provideURL>', { option: true }],
 
     // Additional configuration options can be added here later.
 });
