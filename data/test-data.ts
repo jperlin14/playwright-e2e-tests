@@ -19,5 +19,12 @@ export default class TestData {
             { testID: 'TC-002', facility: 'Hongkong CURA Healthcare Center', hcp: 'Medicaid', visitDt: '05/11/2025' },
             { testID: 'TC-003', facility: 'Seoul CURA Healthcare Center', hcp: 'None', visitDt: '05/12/2025' },
         ];
+    },
+
+    static apiUserCreation() {
+        return [
+            { name: 'John Doe', job: 'Software Engineer', id: '126', createdAt: '2023-08-01T12:34:56.789Z' },
+            { name: 'Jane Smith', job: 'Product Manager', id: '127', createdAt: '2023-08-02T09:15:30.123Z' },
+        ];
     }
 }

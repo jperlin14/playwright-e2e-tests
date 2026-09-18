@@ -87,7 +87,8 @@ export default defineConfig<EnvConfig>({
         // Tests can reference this value instead of hard-coding URLs.
         appURL: 'https://katalon-demo-cura.herokuapp.com/',
         nopCommerceWeb: 'https://admin-demo.nopcommerce.com/',
-
+        // API URL for testing REST API endpoints.
+        apiURL: 'https://reqres.in/api',
         // Database configuration.
         //
         // This object groups all database-related settings together.

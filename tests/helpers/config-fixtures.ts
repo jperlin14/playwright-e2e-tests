@@ -71,6 +71,7 @@ export type EnvConfig = {
     // We'll expand this object later as our project grows.
     dbConfig: {};
     nopCommerceWeb: string;
+    apiURL: string;
 
     // Additional configuration values can easily be added here later.
 };
@@ -110,6 +111,9 @@ export const test = base.extend<EnvConfig>({
 
     // Default nopCommerce web application URL.
     nopCommerceWeb: ['<provideURL>', { option: true }],
+
+    // Default API URL.
+    apiURL: ['<provideURL>', { option: true }],
 
     // Additional configuration options can be added here later.
 });
