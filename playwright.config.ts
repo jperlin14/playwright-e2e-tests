@@ -36,7 +36,7 @@ export const baseConfig = defineConfig({
         [
             'html',
             {
-                open: 'never',
+                open: 'always',
             },
         ],
         [
@@ -137,3 +137,5 @@ export const baseConfig = defineConfig({
     //   reuseExistingServer: !process.env.CI,
     // },
 });
+
+export default baseConfig;

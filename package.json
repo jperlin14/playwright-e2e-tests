@@ -21,7 +21,9 @@
     "debug:ui": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --ui --headed",
     "debug:cli": "cross-env PWDEBUG=1 npx playwright test tests/demo/debug.make.aptmnt.spec.ts",
     "debug:trace": "npx playwright test tests/demo/debug.make.aptmnt.spec.ts --trace on",
-    "pw-basic-cap": "npx playwright test tests/functional/pw.basic.cap.make.aptmnt.spec.ts --headed",
+    "pw-basic-cap": "cross-env RUNNER=LOCAL npx playwright test tests/demo/pw.basic.cap.make.aptmnt.spec.ts --headed",
+    "report:playwright": "npx playwright show-report playwright-report",
+    "report:allure": "allure serve allure-results",
     "demo:tag": "npx playwright test --grep @smoke --headed",
     "demo:tag:regression": "npx playwright test --grep @regression --headed",
     "ele-int": "npx playwright test tests/demo/ele.handling.make.aptmnt.spec.ts --headed",
@@ -38,6 +40,7 @@
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.2",
+    "allure-commandline": "^2.46.1",
     "allure-playwright": "^3.10.2",
     "chalk": "^6.0.0",
     "cross-env": "^10.1.0",
